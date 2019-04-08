@@ -1,0 +1,29 @@
+﻿1、new Date().toLocaleString()   获取当前系统时间
+2、push({text:'test'})           向列表中添加元素
+	var app4 = new Vue({
+	  el: '#app-4',
+	  data: {
+	    todos: [
+	      { text: '学习 JavaScript' },
+	      { text: '学习 Vue' },
+	      { text: '整个牛项目' }
+	    ]
+	  }
+	})  添加新项：app4.todos.push({text:'test'})
+3、this.message = this.message.split('').reverse().join('')   字符串倒序
+
+4、localStorage与sessionStorage
+   缓存数据，前者持续到重启机器（用完需要手动删除），后者持续到关闭浏览器（新开窗口失效）
+   用法：
+	存入：
+	sessionStorage.setItem('key',JSON.stringify(data));
+        sessionStorage.setItem('test',JSON.stringify(main.instis));
+
+	key  test  自定义名字，用于读取
+	
+	读出：
+	var data = JSON.parse(sessionStorage.getItem('key'));
+	var data2 = JSON.parse(sessionStorage.getItem('test'));
+	
+	localStorage用法与上述一致，把session替换为local即可
+

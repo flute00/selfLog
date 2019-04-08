@@ -1,0 +1,44 @@
+﻿app.vue  设置链接别称，此名称跟component里面名称无关
+
+	<router-link to="/index">首页</router-link> | 
+    <router-link to="/infocontent">infocontent</router-link> |
+    <router-link to="/infocontent/useroptions">infocontent/useroptions</router-link> |
+    <router-link to="/useroptions">useroptions</router-link> 
+     <router-link to="/infocontent/demo">demo</router-link> 
+
+index.js   定义路由
+	
+import Vue from 'vue'
+import Router from 'vue-router'
+引入所有组件
+import HelloWorld from '@/components/HelloWorld'
+import useTitle from '@/components/useTitle'
+import infocontent from '@/components/infocontent'
+import useroptions from '@/components/useroptions'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [  数组：页面路由，path按路径累加，path为链接别称， component为import后面的名字  from为component组件中xx.vue中的名字（xx）
+    {
+      path:'/index',
+      name:'useTitle',
+      component: useTitle
+    },//对应链接：/index
+    {
+      path:'/infocontent',
+      name:'infocontent',
+      component: infocontent,//对应链接：/infocontent
+      children:[
+      	{path:'/',component:infocontent},//对应链接：/infocontent/infocontent
+      	{path:'demo',component:HelloWorld},//对应链接：/infocontent/demo
+        {path:'useroptions',component:useroptions}//对应链接：/infocontent/useroptions
+      ]
+    },
+    {
+      path:'/useroptions',
+      name:'useroptions',
+      component: useroptions
+    }//对应链接：/useroptions
+  ]
+})

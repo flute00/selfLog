@@ -1,0 +1,185 @@
+﻿1、router-link :to='test' == this.router.push(test)
+
+2、
+	props:['msg']  
+	import child form  ./child   
+  app.vue ./components/child
+		components:{child}
+		data(){return { msg2:'string'}}
+
+
+   
+	@click='send'   send(){ this.$emit('sendToPar','')}
+    v-on:sendToPar='showMsg' showMsg(data){ this.data=data}
+
+	
+
+3:to="{name:'infocontent',params:{id:'1'}}"
+{{$route.params.id}}
+
+4、  this.$route.query.id
+
+5、var _self = this
+
+6、vuex store:  
+ 
+state:{
+    userDocu:{
+    	noticeMark:false, 
+    	data:'',			  
+    	img_url:''
+    }
+  },
+  mutations:{
+    setDocuData:function (state,data) {
+    	state.userDocu.data = data;
+    },
+    setDoucMark:function(state,data){
+    	state.userDocu.noticeMark = data;
+    },
+    setDoucURL:function(state,url){
+    	state.userDocu.img_url = url;
+    }
+  }
+
+this.$store.state.useDouc.data
+this.$store.commit('setDocuData','data');
+
+7:axios   
+
+	this.$ajax({
+          method: 'POST',
+          url: url.goback + "api/index/checkUser",
+          params: {
+            need_id: '55870',
+            PHPSESSID: $.cookie('PHPSESSID')
+          },
+          headers: { 'Content-type': 'application/x-www-form-urlencoded'}
+
+       }).then(function(res){
+          console.log(res);
+       }).catch(function(error){
+          console.log(error);
+       });
+
+8、npm install axios -S
+   npm install qs --save-dev
+
+   import axios from 'axios'
+   import qs from 'qs'
+
+   Vue.prototype.$ajax = axios
+   Vue.prototype.$qs = qs
+
+     this.$ajax({
+        method: 'POST',
+        url: url.goback + "api/me/order",
+        data: this.$qs.stringify(jsData),
+        headers: { 'Content-type': 'application/x-www-form-urlencoded'}
+
+     }).then(function(res){
+      
+            if(res.data.success){}
+	})
+
+
+9  http://element-cn.eleme.io/#/zh-CN/component/message-box
+   npm i element-ui -S
+	main.js   import ElementUI from 'element-ui';
+		  import 'element-ui/lib/theme-chalk/index.css';
+		  Vue.use(ElementUI);
+
+    Alert:
+	this.$alert('', '', {
+          confirmButtonText: '',
+          callback: action => {
+            _self.$emit('goback');
+          }
+        });
+    
+	this.$confirm('', '', {
+          confirmButtonText: '',
+          cancelButtonText: '',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: ''
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: ''
+          });          
+        });
+  
+	this.$prompt('', '', {
+          confirmButtonText: '',
+          cancelButtonText: '',
+          inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          inputErrorMessage: ''
+        }).then(({ value }) => {
+          this.$message({
+            type: 'success',
+            message: '' + value
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: ''
+          });       
+        });  
+
+10
+	<el-upload
+          class="avatar-uploader"
+           ref="upload"
+          :action="loadURL"
+          :data="headData"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+
+    handleAvatarSuccess(res, file,list) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+
+        // file.name='/'+this.headData.key+'1/'+file.name;
+        // pathName=this.headData.host+'/'+this.headData.key;
+
+        this.$refs.upload.submit();
+  
+      },
+    beforeAvatarUpload(file) {
+        
+        var file="userImage/"+file.uid+file.name.substring(file.name.length-4,file.name.length);
+
+        this.headData.key='college_video/'+file;
+        var ss = this.headData.key;
+       console.log(ss);
+      }
+
+11、 js-cookie
+    
+    npm i js-cookie
+
+    <!-- 使用 -->
+
+    Cookie.set('name', 'value')
+    Cookie.get('name', 'value')
+    Cookies.remove('name')
+
+12、npm run build:prod
+    
+    npm i --save-dev cross-env
+
+    package.json 配置
+
+    "scripts": {
+      "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+      "build:prod": "cross-env NODE_ENV=production env_config=prod node build/build.js",
+      "build:sit": "cross-env NODE_ENV=production env_config=sit node build/build.js"
+    }

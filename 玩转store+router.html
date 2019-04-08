@@ -1,0 +1,78 @@
+﻿vuex store
+
+const store = new Vuex.Store({
+  state: {
+    audio: {
+      'id': 0,
+      'name': '歌曲名称',
+      'singer': '演唱者',
+      'albumPic': '/static/placeholder_disk_play_program.png',
+      'location': '',
+      'album': ''
+    },
+    lyric: '',
+    currentIndex: 0
+  },
+  getters: {
+    audio: state => state.audio,
+    playing: state => state.playing,
+    prBufferedTime: state => {
+      return state.bufferedTime / state.durationTime * 100
+    }
+  },
+  mutations: {
+    <!-- declare in inner pos -->
+    setLocation (state, location) {
+      state.audio.location = location
+    },
+    updateCurrentTime (state, time) {
+      state.currentTime = time
+    },
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
+  },
+  
+  actions: {
+    <!-- use mutations contents -->
+    setToken ({commit, state}, params) {
+      commit('SET_TOKEN', data.token)
+    }
+  }
+
+
+  outer use
+
+  this.$store.dispatch('setToken', tk)
+
+
+  about store's using 
+  import { mapGetters, mapMutations } from 'vuex'
+
+  methods: {
+    <!-- import store mutations = this.fun()  use in dom as @click='playNext'-->
+    ...mapMutations([
+      'playNext',
+      'playPrev'
+    ])
+  }
+
+  <!-- import store params = this.value   use in js as this.value -->
+  computed: {
+    ...mapGetters([
+      'currentTime',
+      'bufferedTime',
+      'durationTime',
+      'audio',
+      'playing'
+    ])
+  },
+  beforeRouteEnter: (to, from, next) => {
+    <!-- in route lifeCallBack -->
+    next(vm => {
+      <!-- vm.audio = this.$store.getter.audio -->
+      if (parseInt(to.params.id) !== parseInt(vm.audio.id) || vm.lyric === '') {
+        vm.loadLrc(vm.audio.id)
+      }
+    })
+  },

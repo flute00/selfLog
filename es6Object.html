@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<script src="https://cdnneed.quansuwangluo.com/college/h5_static/lib/jquery.js"></script>
+	<script src="https://cdnneed.quansuwangluo.com/college/h5_static/lib/vue.js"></script>
+</head>
+<body>
+	<div id="main">
+		<div class="sdf" @click='test(1,333)'>ddddddddddddddd</div>
+	</div>
+	<script type="text/javascript">
+	
+	 	  /**
+	 	   * @Author    Forskan
+	 	   * @DateTime  2018-08-13
+	 	   * @copyright [copyright]
+	 	   * @license   [license]
+	 	   * @version   [函数临时存储机制]
+	 	   * @param     {Function}  fn [description]
+	 	   * @return    {[type]}       [description]
+	 	   */
+		 
+		  /**
+		   * 面向对象class  工厂模式
+		   */
+		  class CPoint{
+		  	constructor(x,y){
+		  		this.x = x;
+		  		this.y = y;
+		  		this.test1='33';
+		  		this.test2 = '22';
+		  		this.s = 0;
+		  	}
+		  	//静态函数，跟随类，不跟随对象，调用方式 CPoint._fun()，通过对象调用会报错
+		  	static _fun(){
+		  		console.log('static fun');
+		  	}
+		  	toString(){
+		  		var _self = this;
+		  		return '('+this.x+','+this.y+')'+_self.test1;
+		  	}
+		  	showSecret(){
+		  		console.log(this.test2,this.s);
+		  	}
+		  }
+		  var p = new CPoint(1,2);
+		  console.log( p.toString()); //(1,2)33
+		  p.showSecret(); //22
+		  // p.showSecret === CPoint.prototype.showSecret //true
+
+		  // Object.assign(CPoint.prototype,{
+		  // 	toInt(){},
+		  // 	toFloat(){}//.....
+		  // })
+		  
+		  /**
+		   * 继承  重载 
+		   */
+		  class Cp extends CPoint{
+		  	
+		  	toString(x){
+		  		return 'www'+x;
+		  	}
+		  	add(){
+		  		return this.x+this.y;
+		  	}
+		  	get prop(){
+		  		return this.val;
+		  	}
+		  	set prop(val){
+		  		this.val = val;
+		  		console.log('val'+this.val);
+		  	}
+		  }
+
+		  var cp = new Cp(11,2);
+		  console.log(cp.add());
+		  cp.showSecret(); //Cp中未定义showSecret  继承自父类
+		  console.log(cp.toString(65));  //重载父类toString
+		  console.log(Cp.name);
+		  CPoint._fun();
+		  Cp._fun(); //父类静态方法可以被子类继承
+
+		  /**
+		   * 多态
+		   */
+		  class Cp1 extends CPoint{
+		  	toString(x){
+		  		console.log('cp1:'+x);
+		  	}
+		  }
+		  class Cp2 extends CPoint{
+		  	toString(x){
+		  		console.log('cp2:'+x);
+		  	}
+		  }
+		  class Cp3 extends CPoint{
+		  	toString(x){
+		  		console.log('cp3:'+x);
+		  	}
+		  }
+
+		  var cp1 = new Cp1();
+		  var cp2 = new Cp2();
+		  var cp3 = new Cp3;
+		  cp1.toString(2);
+		  cp2.toString(2);
+		  cp3.toString(2);
+
+		  /**
+		   * 静态属性  class内部只有静态方法，没有静态属性
+		   */
+		  Cp.staticVal = 'static val';
+		  console.log(Cp.staticVal);
+
+		  //添加成员函数
+		  Object.assign(CPoint.prototype,{
+		  	toInt(){console.log('int');},
+		  	testss:'23333333333333'
+		  })
+		  // 添加成员变量
+		  p.propVal = 'test'; //父类添加成员变量
+		  console.log(cp.propVal); //子类无法访问。。。应该是添加方法不对
+		  console.log(p.testss);   
+		  console.log(cp.testss);  //通过Object.assign添加，子类可以访问
+		  console.log(cp.test1);   //类定义时的成员变量可以被继承
+		  p.toInt(); //直接对象可访问
+		  cp.toInt();//子类对象可访问
+
+		  
+
+		  var main = new Vue({
+		      el: '#main',
+		      data: {
+		        
+		      },
+		      methods:{
+		      	setVersion(mark){
+		      		
+		      	},
+		        test:(a,b)=>{
+		        	console.log(a,b);
+		        	var c = new Cp1();
+		        	c.toString(a+b);
+		        },
+		        init(list){
+		           
+		        },
+		        getData(){
+		            
+		        }
+		      },
+		      mounted:function(){
+		        
+		      }
+		  	})
+	</script>
+</body>
+</html>

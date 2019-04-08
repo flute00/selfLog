@@ -1,0 +1,20 @@
+wx3064a70849d12152
+wx32272ca72e7dcd7d
+
+d04d788c13f8d7e63230c5b3bdb596a7
+
+MySQL£ºsheng121172
+
+oss£º
+College
+CollegeQuansu
+
+https://cdn.console.aliyun.com/home#/Refresh/do
+
+192.168.50.111   
+192.168.11.91
+
+ÐÂ gitµØÖ·£º http://qs.quansu.com:3000 shengjie 1234567890
+
+
+http://git.quansu.com/ysnows/h5_college

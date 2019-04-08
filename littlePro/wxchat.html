@@ -1,0 +1,300 @@
+﻿2018-3-22
+
+app.json全部格式
+
+{
+  "pages": [  //所有页面链接全部放入这里
+    "pages/index/index",
+    "pages/logs/index"，
+    "pages/logs/logs"
+  ],  
+  "window": { //设置窗口样式
+    "navigationBarTitleText": "Demo"
+
+    navigationBarBackgroundColor : 导航栏背景色：#FFFFFF
+    navigationBarTextStyle: 导航栏标题颜色：black/ white  string
+    navigationBarTitleText:导航栏标题文字内容             string;
+    navigationStyle:样式：default/custom(可自定义)        string;
+    backgroundColor：窗口背景  #FFFFFF
+    backgroundTextStyle:样式：dark/light                  string;
+    backgroundColorTop、backgroundColorBottom:顶（底）部窗口背景色 IOS  #FFFFFF;
+    enablePullDownRefresh：下拉刷新 bool
+    onReachBottomDistance:触底时底部距离 50;
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/logs/logs",
+      "text": "日志"
+    }]
+    color
+    selectedColor
+    backgroundColor
+    borderStyle
+    position
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
+
+绑定函数，以及动态更改视图内容
+  <view class='test'>
+    <text>{{msg}}</text>
+  </view>
+  <button bindtap='clickMe'>click</button>
+  Page({
+    按钮响应函数
+    clickMe:function(){
+      this.setData({msg:"test";})
+      },
+
+    数据绑定
+    data:{
+      msg:'test';  内容 <view>{{msg}}</view>
+      id: 0 ;      组件属性<view id="item-{{id}}"></view>
+      condition:true; 控制属性 <view wx:if="{{condition}}"></view>
+    }
+    关键字：<checkbox checked="{{false}}"></checkbox>
+    运算：<view hidden="{{flag?true:false;}}"></view>
+          <view>{{a+b}}+{{c}}+d</view>
+          data:{
+            a:1,
+            b:2,
+            c:3
+          }  view中显示：3+3+d
+    逻辑判断：<view wx:if="{{length > 5}}"></view>
+    字符串：<view>{{"hello" + name}}</view>
+          data:{
+            name:"name"
+          }
+    数据路径运算：<view>{{object.key}} {{array[0]}}</view>
+          data: {
+            object: {
+              key: 'Hello '
+            },
+            array: ['MINA']
+          }
+    })
+
+  wx:if:根据其后值判断是否渲染
+  <view wx:if="{{desc}}" class="page-head-desc">{{desc}}</view>
+
+  wx:for:绑定一个数组，用数组中各项数据重复渲染
+  wx:for-item  指定数组当前元素的变量名
+  wx:for-index 指定数组当前下标的变量名
+  <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
+    <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="j">
+      <view wx:if="{{i <= j}}">
+        {{i}} * {{j}} = {{i * j}}
+      </view>
+    </view>
+  </view> 九九乘法表
+
+  wx:key  添加、排序时，不删除直接渲染，不带key  会删除重新添加
+
+  模板：template
+  <template name="msgItem">
+    <view>
+      <text> {{index}}: {{msg}} </text>
+      <text> Time: {{time}} </text>
+    </view>
+  </template>
+  调用时：is声明使用的模板，传入data参数
+  <template is="msgItem" data="{{...item}}"/>
+  Page({
+    data:{
+      item:{
+        index:0,
+        msg:'template',
+        time:'2222'
+      }
+    }
+  })
+
+  事件： key（bind/catch+类型，如：bindtap） value，Page中要有对应同名函数
+      bind不阻止冒泡事件向上冒泡，catch阻止
+
+  冒泡事件类型：touchstart 触摸开始
+                touchmove  触摸后移动
+                touchcancel触摸被打断，如来电或者弹窗
+                touchend   触摸结束
+                tap        点击
+                longtap    长按
+
+  引用：import <import src ="item.wxml"/> 可以使用引用中的template 嵌套不起作用 
+        include 将目标文件除了<template>的整个代码引入，相当于拷贝到该位置
+
+
+  2018-3-23  微信小程序demo研究
+
+      mainIndex.wxml
+
+      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+      <!-- 渲染list中所有item，wx:key 避免反复渲染 -->
+        <view class="kind-list-item">
+          <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
+          <!-- item.id = list[i].id  通过list[i].open判断class列表是展开还是收起  bindtap 绑定点击事件-->
+            <view class="kind-list-text">{{item.name}}</view>
+            <!-- 设置文字内容  list[i].name -->
+            <image class="kind-list-img" src="resources/kind/{{item.id}}.png"></image>
+            <!-- 设置图标  resources/kind/list[i].id.png -->
+          </view>
+          <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+            <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+              <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
+              <!-- item.pages = list[i].pages  page= list[i].pages[j] -->
+                <navigator url="pages/{{page}}/{{page}}" class="navigator">
+                <!-- 跳转链接 url="" -->
+                  <view class="navigator-text">{{page}}</view>
+                  <view class="navigator-arrow"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      mainIndex.js
+      Page({
+        data: {
+          list: [
+            {
+              id: 'view',
+              name: '视图容器',
+              open: false,
+              pages: ['view', 'scroll-view', 'swiper']
+            }, {
+              id: 'content',
+              name: '基础内容',
+              open: false,
+              pages: ['text', 'icon', 'progress']
+            }
+          ]
+        },
+        kindToggle: function (e) {
+          var id = e.currentTarget.id, list = this.data.list;
+          for (var i = 0, len = list.length; i < len; ++i) {
+            if (list[i].id == id) {
+              list[i].open = !list[i].open
+            } else {
+              list[i].open = false
+            }
+          }
+          this.setData({
+            list: list
+          });
+        }
+      })
+
+2018-3-24  自写demo尝试
+
+  1、关于传值取值的几种方法：
+     a：列表index下标取值
+        data-index="{{index}}"  =>  e.currentTarget.dataset.index获取
+                                    e.target 区分子元素，点击子元素无效
+     b：页面传值
+        wx.navigateTo({
+          url:'../add?objectId='+indexId
+        })
+        在跳转页面onLoad中获取
+        onLoad: function(options){
+          var indexId = options.indexId
+        }  
+     c: form表单取值
+        通过bindsubmit  与formType="submit" 配合使用
+        formSubmit:function(e){
+          var detail = e.detail.value.detail;
+          .
+          .
+          .
+        }
+
+2018-9-11  自定义组件定义及调用方式
+
+定义：新建页面 wxml wxss 正常写法
+.json  {"component":true,  声明为组件类型
+  	"usingComponents":{} 引用其他组件时使用，下述详情
+	}
+
+.js  组件内用法与常规页面一致，与父组件交互：
+
+	 this.triggerEvent('cancelEfdst','testParam'); p1:父组件协定的事件函数， p2：传递参数
+
+传参：properties：{title:'',content:''}
+	prop_name:{
+		type:'String', //必填属性，String,Number,Boolean,Object, Array, null(任意类型)
+		value:'default'//默认值
+		obeserver:function(oldVal,newVal,changedPath){}
+	}
+
+
+调用：
+.json
+{
+  "usingComponents":{
+    "layer":"../layer/layer"
+  }
+}
+
+.wxml
+ <layer wx:if="{{layer}}" 
+	title='title'    // 传参
+	content='content'
+	bind:cancelEfdst='cancel'
+	bind:confirmEvent='confirm'></layer>
+
+.js
+	定义页面中绑定的事件处理函数，接收参数使用param.detail  测试2个参数出错，可传对象
+  confirm:function(){
+    console.log('confirem');
+  },
+  cancel:function(param){
+    console.log('cancelesdf', param.detail);
+  },
+
+组件生命周期：
+
+
+  created:function(){
+    //组件实例进入页面节点树时触发，是最新触发的生命周期函数，值得注意的是此时不能使用setData方法修改数据    ，但是可以获取到数据
+    console.log('created');
+  },
+   attached:function(){
+    //组件实例进入页面节点树时触发，是第二顺序触发的生命周期函数，此时可以使用setData修改数据
+    console.log('attached');
+  },
+
+   ready:function(){
+    //组件布局完成后执行，此时可以使用selectQuery获取到组件的节点信息
+    console.log('ready');
+  },
+   moved:function(){
+    //组件在父页面的节点位置发生改变时触发
+    console.log('moved');
+  },
+   detached:function(){
+     //组件在父页面被删除时触发
+    console.log('detached');  
+  }, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+/*@import 导入外联样式 相对路径*/
+@import "common.wxss";
+
+/*内联样式*/
+<view style="color:{{color}}"/> 动态接收样式，运行时进行解析，style 中避免写静态样式
+<view class="sd"/>   常规用法
+
+.ss{
+  display:flex;   /*多栏多列布局   flex-direction：row/colum*/
+  margin:0 auto; 父元素宽度下左右居中显示
+
+}
+/*在前面插入内容*/
+.ss:before{
+    content: 'B';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/*在后面插入内容*/
+.ss:after{
+
+}
+
+/*本地资源无法通过wxss获取，可使用网络图片、base64、<image src="">*/
