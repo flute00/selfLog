@@ -20,17 +20,17 @@
 
 ```	 可以通过变量来判断
 
-bRender: boolen = true
-render (h, context) {
-	return (
-	  <div>
-		{
-		  if(this.bRender)
-			return h('div', 'div')
-		}
-	  </div>
-	)
-}
+   bRender: boolen = true
+   render (h, context) {
+	  return (
+	    <div>
+		  {
+		    if(this.bRender)
+			  return h('div', 'div')
+		  }
+	    </div>
+	  )
+    }
 
 ```
 
