@@ -19,8 +19,8 @@
 
 可以通过变量来判断
 	
-```	
-bRender: boolen = true
+`
+	bRender: boolen = true
 	render (h, context) {
 	return (
 		<div>
@@ -31,5 +31,7 @@ bRender: boolen = true
 		</div>
 		)
 }
-```
-	上述{}内容相当于 <div v-if="bRender"></div>
+`
+
+
+上述{}内容相当于 <div v-if="bRender"></div>
