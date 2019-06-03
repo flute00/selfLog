@@ -17,21 +17,17 @@
 
 ##### v-if
 
-可以通过变量来判断
-	
-`
+```	 可以通过变量来判断
 	bRender: boolen = true
 	render (h, context) {
-	return (
-		<div>
+		return (
+		  <div>
 			{
-				if(this.bRender)
-					return h('div', 'div')
+			  if(this.bRender)
+				return h('div', 'div')
 			}
-		</div>
+		  </div>
 		)
-}
-`
-
-
+	}
+```
 上述{}内容相当于 <div v-if="bRender"></div>
