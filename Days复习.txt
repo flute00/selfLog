@@ -1,0 +1,604 @@
+Day 01---初探JavaScript
+1 JavaScript特点：简单性、安全性、动态性、跨平台性
+2 JavaScript主要有三部分组成：ECMAScript(js的核心)、DOM(浏览器对象模型)、BOM(文档对象模型)
+3 JavaScript添加方式：
+	(1)内部添加
+		<script type="text/javascript">
+			//js代码
+		</script>
+	(2)链接外部js文件
+		<script type="text/javascript" src="a.js">
+  			//注意不要在script标签中再添加代码，即使添加了代码也不会执行
+		</script>
+	(3)在HTML标签中:作为某个元素的事件属性值或者是超链接href属性值
+		<a href="javascript:alert('粤嵌欢迎你!')">点我啊</a>
+		<input name="btn" type="button" value="弹出消息框" onclick="javascript:alert('粤嵌欢迎你!');"/>
+4 js调试输出常用的API
+	警告框 alert()
+	确认框 confirm()
+	输入框 prompt()
+	向控制台输出结果 console.log()
+
+=======================================================================================================
+
+Day 02---变量和数据类型
+1 js的数据类型分两类：简单数据类型和复杂数据类型
+2 简单数据类型共分5种：
+	Undefinded	undefinded  	当声明一个变量并没有赋值时，变量的类型是Undefinded类型
+	Null	    null  	        对象指针为空
+	Boolean     true、false     	true/false两个值必须小写
+	Number      整数与浮点数     NAN
+	String      字符串			
+3 复杂数据类型包括三种：对象(object)、函数(function)和数组(array)，本质上三种都属于对象
+4 数据类型转换
+	自动类型转换(隐式转换)
+	强制类型转换
+		parseInt()强制为转换为整型
+		parseFloat()强制为转换浮点型
+		Sring()强制为转换字符串
+		Number()强制转换为数字
+		Boolean()强制转化为布尔型
+5 三元运算符
+	语法：逻辑值(表达式) ?  表达式1 :  表达式2
+	结果：如果逻辑值是true，则最终返回表达式1的值，如果逻辑值是false，则最终结果返回表达式2的值
+6 typeof用来检测给定的变量的类型
+	typeof 变量
+
+=======================================================================================================
+
+Day 03---语句和程序结构
+1 语言结构有三种：
+	顺序结构
+	选择结构
+		if系列
+			if 						单分支结构
+			if...else				双分支结构
+			if...else if 			多分支结构
+			if...else if...else 	else变种
+		switch结构
+	循环结构
+
+=======================================================================================================
+
+Day 04---循环结构
+1 三大循环结构：for循环、while循环、do...while循环
+	JavaScript为了提高遍历对象的属性和数组元素的性能，增加了for-in循环
+	for循环的表达式2不能省略，会形成死循环
+
+Day 05---函数
+1 定义函数
+	function 函数名(形式参数1, 形式参数2, ...){
+   		//函数体  
+	}
+2 函数只有被调用才能被执行
+3 只要方法被调用，则一定会自动创建一个arguments对象，这个对象会存储传过来的所有的实参
+4 变量的作用域指的是，变量起作用的范围。也就是能访问到变量的有效范围
+5 JavaScript的变量依据作用域的范围可以分为全局变量、局部变量
+	全局变量		定义在函数外部的变量都是全局变量
+	局部变量		在函数内声明的变量，叫局部变量！表示形参的变量也是局部变量！
+	当局部变量与全局变量重名时，局部变量的作用域会覆盖全局变量的作用域
+	当函数返回离开局部变量的作用域后，又回到全局变量的作用域
+	访问同名的全局变量	window.全局变量名
+
+=======================================================================================================
+
+Day 06---数组
+1 数组有两种基本创建方式：【字面量方式】和【构造函数】
+	数组字面量：所有的元素用方括号括起来，不同的元素之间用逗号分隔
+	构造函数在创建对象的时候使用。数组的构造函数式Array()
+2 数组的遍历
+	for
+	for...in
+		for(var i in arr){
+
+		}
+	forEach
+		arr.forEach(function(element[元素],index[元素下标]){
+
+		});
+3 转换方法
+	toString()	返回由数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串
+	join()		toString() 方法只能使用逗号连接，而 join() 方法可以使用指定的连接符连接
+4 栈方法
+	push() 压栈	先入后出		其实就是把新的元素添加到数组的后面
+	pop()  出栈 	后入先出		其实就是把数组中的最后一个元素从数组中移除，每次只能出栈一个元素
+5 队列方法
+	特点：先进先出
+	unshift		向队列头部添加元素
+	shift		从队列头部移出匀速
+	push		向队列尾部添加元素
+	pop 		从队列尾部移出元素
+6 元素的倒置
+	arr.reverse();
+7 查找元素在数组中的索引
+	indexOf(item)					从前面向后面查找第item第一次出现的位置，item指元素
+	lastindexOf(item)				从尾部向头部查找第item第一次出现的位置
+	indexOf(item,fromBack) 			从第二个参数的位置开向后始查找 item 第一次出现的位置
+	lastIndexOf(item,fromForward) 	从第二个参数的位置开始向前查找 item 第一次出现的位置
+8 连接数组获得新的数组
+	arr.concat(arrayX,arrayX,...,arrayX);
+	该方法返回一个新的数组，原来的数组没有任何变化
+9 截取数组
+	arr.slice(start,end)	
+	截取数组，并返回截取到的新数组		
+	包含start不包含end【start,end)	
+	end要大于start，否则截取不到数组
+
+	arr.splice(index,howmany,item1,.....,itemX)
+	向数组中添加/删除元素
+10 数组排序
+	arr.sort(sortby)
+	//升序函数
+	function sortAsc(num1, num2){
+	  	return num1 - num2;   //num1 > num2 就返回正数
+	}
+	//降序函数
+	function sortDesc(num1, num2){
+	  	return num2 - num1; //num1 > num2 就返回负数
+	}
+11 数组监测
+	instanceof
+		arr instanceof Array
+	Array.isArray(arr)
+12 二维数组
+	数组中的每个元素都是数组，则就是一个二维数组
+	使用嵌套循环来遍历二维数组
+
+=======================================================================================================
+
+Day 07---字符串操作和数学函数
+1 创建字符串
+	使用字符串常量
+	使用String()转换函数
+	通过关键字new来使用String()构造方法
+		var s = new String("abc");
+2 s.charAt(index)
+	ndex  必需。表示字符串中某个位置的数字，即字符在字符串中的下标。
+	返回值：返回的是指定位置的字符。但是Javascript没有字符类型，其实返回的是长度为 1 的字符串。
+	说明：可以把字符串想象成一个数组，他的下标也是从0开始，最后一个元素的下标是：s.length - 1
+3 s.charCodeAt(index)
+	返回指定位置的字符的 Unicode 编码
+4 字符串连接
+	s.concat(stringX,stringX,...,stringX)
+5 查找字符串出现的位置
+	s.indexOf(searchvalue,fromindex)
+		方法可返回某个指定的字符串值在字符串中首次出现的位置
+		searchvalue 必须，需要监测的字符值
+		fromindex	规定在字符串中开始检索的位置，它的合法取值是 0 到 s.length - 1。
+	s.lastIndexOf(searchvalue,fromindex)	
+		方法可返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。
+6 截取字符串
+	s.substring(start,stop) 
+		方法用于提取字符串中介于两个指定下标之间的字符。
+		【start,stop）不包含stop
+	s.substr(start, length)
+		方法可在字符串中抽取从 start 下标开始的指定数目的字符
+		start 		
+			要抽取的子串的起始下标。必须是数值。如果是负数，那么该参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2 指倒数第二个字符
+		length
+			子串中的字符数。必须是数值。如果省略了该参数，那么返回从 stringObject 的开始位置到结尾的字串
+	s.slice(start,end) 
+		方法可提取字符串的某个部分，并以新的字符串返回被提取的部分
+7 大小写转换方法
+	s.toUpperCase()
+		字符串中所有的字符转变成为大写
+	s.toLowerCase()
+		字符串中的所有的字符转变成小写
+	s.trim()
+		去除字符串的首尾的所有空白字符
+8 字符串替换方法
+	s.replace(regexp/substr,replacement)
+		方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串
+	s.match(匹配值) 
+		在字符串内检索指定的值
+	s.search(匹配的参数)
+		匹配的参数只有一个，要么是正则表达式，要么是字符串
+9 字符串比较
+	相等 ==
+		内容相等类型不一定相等
+	恒等 ===
+		内容相等类型也相等
+	s.localeCompare(other)
+		如果字符串在字母表中应该排在字符串参数之前，则返回一个负值
+		如果字符串的等于字符串参数，返回0
+		如果字符串在字母表中应该排在字符串参数之后，则返回一个正数
+10 字符串切割的方法
+	s.split(separator,howmany)
+11 Math对象
+	Math.PI
+		π的值
+	Math.E
+		自然对数的底数
+	Math.abs(x)
+		返回X的绝对值
+	Math.max(任意个数)
+		返回传入数值中最大值
+	Math.min(任意个数)
+		返回传入数值中最小值
+	Math.ceil(Number)
+		向上取整
+	Math.floor(Number)
+		向下取整
+	Math.round(Number)
+		四舍五入
+	Math.pow(x, y)
+		返回x的y平方
+	Math.sqrt(x)
+		返回x的平方根
+	Math.sin(x) 
+		正弦
+	Math.cos(x) 
+		余弦
+	Math.tan(x) 
+		正切
+	[注意]JS的Math对象中没有sum求和函数
+
+=======================================================================================================
+
+Day 08---BOM操作
+1 三种获取浏览器窗口大小的方式
+	(1)	window.innerHeight --- 浏览器窗口的内部高度
+		window.innerWidth  --- 浏览器窗口的内部宽度
+	(2)	document.documentElement.clientHeight
+		document.documentElement.clientWidth
+
+	为了兼容浏览器版本可以两个一起使用
+		var height = window.innerHeight || document.documentElement.clientHeight
+		var width = window.innerWidth || document.documentElement.clientWidth
+2 调整窗口大小
+	window.resizeTo(w,h)
+		调整到指定高度
+	window.resizeBy(deltW,deltH)
+		增加指定值的窗口宽高
+3 打开窗口
+	open(URL,name,features)
+
+	height、width
+		窗口文档显示区的高度、宽度。以像素计。
+	left、top
+		窗口的x坐标、y坐标。以像素计
+	toolbar=yes | no  |1 | 0
+		是否显示浏览器的工具栏。黙认是yes。
+	scrollbars=yes | no  |1 | 0
+		是否显示滚动条。黙认是yes。
+	location=yes | no  |1 | 0
+		是否显示地址地段。黙认是yes。
+	status=yes | no  |1 | 0
+		是否添加状态栏。黙认是yes。
+	menubar=yes | no  |1 | 0
+		是否显示菜单栏。黙认是yes。
+	resizable=yes | no  |1 | 0
+		窗口是否可调节尺寸。黙认是yes。
+	titlebar=yes | no  |1 | 0
+		是否显示标题栏。黙认是yes。
+	fullscreen=yes | no  |1 | 0
+		是否使用全屏模式显示浏览器。黙认是no。
+
+	打开新的窗口，窗口特性全部使用默认值
+4 win.close方法
+	关闭新打开的窗口
+5 window中的定时器(超时调用和周期调用)
+	window.setTimeout(code,millisec) --- 超时调用
+		code       需要执行的代码
+		millisec   多长时间后执行code中的代码
+	setInterval(code,millisec) --- 周期调用
+	clearInterval(id)
+		清除定时器
+6 系统对话框
+	alert()
+		警告框
+	prompt()
+		输入框
+		点击确认返回具体的文本内容，点击取消返回null
+	confirm()
+		确认框
+		若点击确认返回true，点击取消返回false
+7 localtion对象的常用属性
+	host
+		设置或返回主机名和当前 URL 的端口号
+	hostname
+		设置或返回当前 URL 的主机名
+	href
+		设置或返回完整的 URL。
+	pathname
+		设置或返回当前 URL 的路径部分。
+	port
+		设置或返回当前 URL 的端口号。
+	protocol
+		设置或返回当前 URL 的协议。
+	search
+		设置或返回从问号 (?) 开始的 URL（查询部分）
+8 localtion的常用方法
+	assign(url)
+		加载新的文档。
+	reload(reforce)
+		重新加载当前文档。	
+	replace(newURL)
+		用新的文档替换当前文档。
+9 history对象的常用方法
+	back()
+		加载history列表中的前一个URL
+	forword()
+		加载history列表中的下一个URL
+	go()
+		加载history列表中的某个具体页面
+10 window常用的事件
+	onload --- 加载事件
+	onscroll --- 滚动事件
+11 两种方式存储cookie
+	服务器端通过http响应头Set-Cookie来通知浏览器存储cookie
+	客户端(浏览器端)通过JavaScript去存储cookie，Javascript操作cookie需要通过document的cookie属性来完成
+		function saveCookie(name,value,expiredays)[name,文本，存储时间]{
+			var date = new Date();
+			date.setDate(date.getDate() + expiredays);
+			var cookieText = encodeURIComponent(name)[url编码] + "=" + encodeURIComponent(value) + ";expires=" + date.toGMTString();
+			document.cookie = cookieText;
+		}
+12 读取cookie
+	读取cookie仍然是通过document的cookie属性
+	function getCookie(name){
+		//先拿到cookie字符串
+		var cookieText = document.cookie;
+		//获取要查找的 cookie的 name所在的下标
+		var index = cookieText.indexOf(name + "=");
+		//如果下标不为-1，证明找到了
+		if(index != -1){
+			//查找指定的cookie的结束为止
+			var endIndex = cookieText.indexOf(";", index);
+			// 如果等于-1，证明没有找到;号，则把末尾设置为字符串的末尾
+			endIndex = (endIndex == -1 ? cookieText.length : endIndex);
+			//把想要的cookie的value截取出来
+			var value = cookieText.substring(index + (name + "=").length, endIndex);
+			//因为存储的时候使用了url编码，所以查到的东西需要url解码
+			return decodeURIComponent(value);
+		}
+	}
+13 删除cookie
+	删除cookie的原理非常简单，只要把超时时间设置为0，就会立即删除了
+
+=======================================================================================================
+
+Day 09~10---DOM基础
+1 dom节点概述
+	(1)document节点是每个文档的根节点
+	(2)document节点下面只有一个 html节点，我们称之为文档元素
+			文档元素是文档的最外层元素，其他元素都包含在文档元素中。
+			一个文档只能有一个文档元素，在html中文档元素永远是 <html>元素
+	(3)在DOM树中，html文档中每一处标记都可以用树中的一个节点来表示
+			html(元素)标签，通过【元素节点】表示
+			属性，通过【属性节点】来表示
+			文档类型，通过【文档类型节点】来表示
+			注释，通过【注释类型】来表示
+2 获取节点的方法
+	(1)document.getElementById(id)
+	(2)document.getElementsByTagName(tagName)
+	(3)document.getElementsByName(name)
+	(4)document.getElementsByClassName(className)
+	(5)document.quertSelectorAll(css选择器)
+	(6)document.querySelector(css选择器)
+	其中2,3,4,6获取到的都是数组
+3 节点与节点的关系
+	parent  父节点	父节点拥有任意数量的子节点
+	child	子节点	子节点用有一个父节点
+	sibling 兄弟节点	兄弟节点拥有相同的父节点
+	root	根节点   documentElement		根节点没有父节点
+4 childNodes属性
+	获取一个元素的所有子节点
+5 firstChild属性
+	获取一个元素的第一个子节点
+6 lastChild属性
+	获取一个元素最后的子节点
+7 parentNode属性
+	获取一个元素的父节点
+8 perviousSibling属性
+	获取一个元素的上一个兄弟节点
+9 nextSibling属性
+	获取一个元素的下一个兄弟节点
+10 childElementCount
+	统计子元素的数量
+11 createTextNode()
+	创建文本节点
+12 appendChild()
+	给元素添加child节点
+13 createElement(nodeName)
+	创建元素节点
+14 insertBefore()
+	在一个节点前插入一个新节点
+15 removeChild()
+	移出子节点
+16 replaceChild()
+	替换子节点
+17 cloneNode()
+	克隆节点
+18 元素属性操作
+	element.getAttribute(attributename) --- 获取属性值
+	element.setAttribute(attributename,attributevalue) --- 设置属性值
+	element.removeAttribute(attributename) --- 移出属性值
+19 元素节点常用的属性
+	tagName
+	innerHTML
+	innerText
+	id
+	className
+	value属性
+20 获取修改行间样式表
+	element.style.css属性名
+	element.style['属性名']
+21 获取内部样式表和外部样式表
+	对ie浏览器来说：对象.currentStyle('属性名')
+	其他浏览器：window.getComputesStyle(对象,'')['属性名']
+
+=======================================================================================================
+
+Day 11---事件
+1 事件流
+	冒泡流
+		从底层向上传播
+	捕获流
+		最具体的节点最后才能收到事件
+2 DOM2级事件规定的事件流包括3个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段
+3 删除事件处理程序可以把它赋值为null
+4 事件类型
+	onload
+		load事件会在页面或图像加载完成立即执行
+	onunload
+		onunload事件在用户退出页面时发生，当页面完全卸载后在window上面触发，或当框架集卸载后在框架集上触发
+		只要用户从一个页面切换到另一个页面就会触发该事件
+		仅IE支持。所以实际较少使用。
+	onresize
+		当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件
+	onscroll
+		滚动条滚动时触发的事件
+	onfocus
+		获取焦点，这个事件不会冒泡
+	onblur
+		失去焦点，这个事件不会冒泡
+	onfocusin
+		是infocus的冒泡版本，在chrome和fireFox不支持
+	onfocusout
+		是onblur的冒泡版本，在chrom和firefox不支持
+5 鼠标事件
+	onclick --- 单击
+	ondblclick --- 双击
+	onmousedowm --- 按下鼠标
+	onmouseup --- 释放鼠标
+	onmouseover 和 onmouseout --- 鼠标进去和移走时触发
+	onmouseenter 和 onmouseleave --- 效果等同onmouseover 和 onmouseout,这两个事件不冒泡
+	onmousemove --- 鼠标在元素内部移动
+6 键盘事件
+	keydowm --- 按下任意键触发
+	keypress --- 按下字符键触发
+	keyup --- 释放键盘上的键时触发
+7 参照物父元素
+	element.offsetParent --- 返回元素的父容器
+	element.offsetWidth --- 返回元素的高度
+	element.offsetHight --- 返回元素的宽度
+	element.offsetLeft --- 返回元素的水平偏移位置
+	element.offsetTop --- 返回元素的垂直偏移位置
+
+=======================================================================================================
+
+Day 12---事件对象(event)
+1 event事件
+	bubbles --- 表明事件是否冒泡
+	cancelabel ---  表明是否可以取消事件迷人行为
+	currentTarget --- 注册事件处理程序的元素
+	defaultPrevented --- 为true表示已经调用了
+	detail --- 事件相关信息
+	eventPhase --- 调用事件处理程序的阶段
+	stopPropagation --- 取消事件的进一步捕获或冒泡
+	prevenDefault --- 取消事件默认行为
+	stopImmediatePropagation --- 取消事件的进一步捕获或冒泡，同时阻止任何事件处理程序被调用
+	target --- 事件的目标
+	trusted --- 为 true 表示事件是浏览器生成的
+	type --- 被触发的事件类型
+	view --- 与事件关联的抽象视图
+2 DOM2级事件处理
+	addEventListener 和 removeEventlistener
+		三个参数
+			处理的事件名(click，mouseover...)
+			函数
+			布尔值(true在捕获阶段调用处理程序，false在冒泡阶段调用处理程序)
+	一个元素可以添加多个处理程序，浏览器会按照添加的顺序执行
+3 event对象的高级属性
+	offsetX 和 offsetY
+		光标相对于触发元素边界的X、Y坐标
+		把左上角的位置看做0,0
+	screenX 和 screenY
+		当前光标相对于屏幕边缘的x、y坐标
+		其实就是相对于屏幕左上角的坐标。(可以看出是绝对坐标)
+	clientX 和 clientY
+		当前光标相对于浏览器浏览器窗口客户区域左上角的坐标(客户区域不包括状态栏、菜单栏等。)
+	stopPropagation()
+		如果bubbles是true(允许冒泡)，则stopPropagation可以阻止事件进一步捕获或冒泡
+	preventDefault()
+		取消事件默认行为
+	pageX 和 pageY
+		获取光标在文档中的位置
+		【注意】
+			这个和整个页面的左上角有关，与元素的位置无关。如果页面进行的滚动，即使光标没有任何移动，那么pageY也会变化。而这种情况下clientY是没有变化的
+4 代理事件
+	假设现在要处理多个具有并列关系元素的click事件，当我点击这些元素中的任何一个元素，则事件一定会通过冒泡的方式，冒泡到他的上层的父节点元素然后一直冒到window，所以这个时候我们就可以在他的上层元素中添加事件处理程序，来统一处理这些事件，在处理的过程中可以通过获取target的id来知道具体点击的是哪个元素。这种方式就称之为【事件委托】
+
+=======================================================================================================
+
+Day 13---日期对象和万年历
+1 获取当前日期的字符串形式
+	var date = Date()
+2 创建日期对象
+	var date = new Date("字符串格式日期")
+	var date = new Date(指定的毫秒值)
+	var date = new Date(年, 月[, 日, 时, 分, 秒])
+3 日期继承的三个方法
+	toString()
+		返回带有时区信息的日期和时间
+	toLocalString()
+		返回符合本地习惯的日期和时间格式
+	valueOf()
+		返回的代表这个时间的毫秒值
+		一般用来比较日期大小
+4 Date对象的常用方法
+	getTime() 和 setTime(毫秒值)
+		getTime()		返回表示日期的毫秒值，与valueOf()一样
+		setTime(毫秒值)	以毫秒数设置日期，会改变整个日期
+	getFullYear()和setFullYear(年份)
+		getFullYear()	取得4位数的年份
+		setFullYear()	设置日期的年份，必须是4位数字的年份,否则将来获取的年份是不对的。
+	getMonth()和setMonth(月份)
+		getMonth()		取得月份。  范围：0-11
+		setMonth(月份) 	设置月份
+	getDate()和setDate(日)
+		getDate() 	获取一个月中的第几天(1-31)
+		setDate(日) 设置一个月中的第几天
+	getDay()
+		getDay() 获取是星期几   0代表星期日  6代表星期6
+	getHours()和setHours(小时)
+		getHours()		获取小时数(0-23)
+		setHours(小时)	设置小时数	如果设置的值超过23则更改月份中的日期，小于0则减少日期数。
+	getMinutes() 和setMinutes(分钟)
+		getMinutes()		获取分钟数(0-59)
+		setMinutes(分钟)		设置分钟数	如果超过60或小于0则自动增加或减少小时。
+	getSeconds()和setSeconds(秒)
+		getSeconds() 		获取秒数  0-59
+		setSeconds(秒数) 	设置秒数  如果超过60或小于0，则自动增减分钟数
+	getMilliSeconds()和setMilliSeconds(毫秒值)
+		getMilliSeconds() 		获取毫秒值 0-999
+		setMilliSeconds(毫秒值) 	设置毫秒值 
+5 日期格式化方法
+	toDateString() --- 以特定于实现的格式显示星期几、月、日和年
+	toTimeString() --- 以特定于实现的格式显示时、分、秒和时区
+	toLocalDateString() --- 以特定于地区的格式显示星期几、月、日和年
+	toLocalTimeString() --- 以特定于实现的格式显示时、分、秒
+	toUTCString() --- 以特定于实现的格式完整的 UTC 日期
+
+=======================================================================================================
+
+Day 14---正则表达式
+1 创建正则表达式
+	var patt = new RegExp(pattern,modifiers)
+		参数1	正则表达式模式，字符串形式
+		参数2	模式修饰符，用于指定全局匹配，区分大小写的匹配和多行匹配
+	var pa = /pattern/modifiers
+		这个时候模式和模式修饰符都不能再添加双引号或单引号
+2 正则表达式模式修饰符
+	g
+		表示全局
+	i
+		忽略大小写
+	u
+		多行匹配
+3 正则表达式方法
+	test()
+		匹配成功返回true，失败返回false
+	exec()
+		该方法专门为捕获组设计
+		匹配成功返回一个数组，失败返回null
+4 支持正则表达式的字符串方法
+	search --- 检索与正则表达式相匹配的第一个匹配项的索引
+	match --- 找到一个或多个正则表达式的匹配
+	replace --- 替换与正则表达式匹配的字符串
+	spilt --- 把字符串分割为字符串数组
+
+
+
+
