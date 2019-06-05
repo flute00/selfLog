@@ -105,6 +105,13 @@ export default class Test1 extends Vue {
 @State('app') sname:string
 @Action('FedLogOut') actionFedOut
 @Mutation('SET_AVATAR') mutationSET_AVATAR
+const appModule = namespace('app')
+
+
+@appModule.State('name') private aname: any
+@appModule.Mutation('TOGGLE_NAME') private TOGGLE_NAMESS: any
+@appModule.Action('setVal') private setVal: any
+
 mounted() {
   console.log('mounted', this.msg)
   console.log(this.sname)
@@ -113,8 +120,8 @@ mounted() {
   this.mutationSET_AVATAR('dddd')
 }
 ```
-
-
+ store->app.ts
+ namespaced: true
 
 
 
